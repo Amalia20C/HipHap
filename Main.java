@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
       //these 2 are for the SetData thing because i tried to put it into main directly 
-      //and it actually works so maybe we keep it like this but it doesnd matter for now
+      //and it actually works so maybe we keep it like this but it doesnt matter for now
 ///import java.io.*;
 //import java.util.*;
 
@@ -26,9 +26,7 @@ public class Main {
  //setEventData();
  //setPartnerData();
  
- 
-  // show the main screen
-  showMainScreen();
+   showMainScreen();
  }
 
  /**
