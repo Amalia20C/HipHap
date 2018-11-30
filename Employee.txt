@@ -1,0 +1,3 @@
+001a:Simonas:pass01:blabla1@stud.kea.dk
+002a:Madalina:pass02:blabla2@stud.kea.dk
+003a:Amalia:pass03:blabla3@stud.kea.dk
