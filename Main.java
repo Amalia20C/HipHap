@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-      //these 2 are for the SetData thing because i tried to put it into main directly 
-      //and it actually works so maybe we keep it like this but it doesnd matter for now
 import java.io.*;
 import java.util.*;
 
@@ -9,8 +7,12 @@ public class Main {
 
  // main array which stores employees
  private static ArrayList < Employee > employees = new ArrayList < > ();
+
  // ArrayList which stores events
  private static ArrayList < Event > events = new ArrayList < > ();
+ 
+ // ArrayList which stores partners
+ private static ArrayList < Partner > partners = new ArrayList < > ();
  
  // we are gonna just leave this here for now, maybe we create statistic as well 
  //private static ArrayList<Statistic> statistics = new ArrayList<>();
@@ -21,14 +23,13 @@ public class Main {
  private static Employee currentEmployee;
 
  public static void main(String[] args) {
-   //this is just shit from the SetData thing :D
+ //this is just shit from the SetData thing :D
  setEmployeeData();
  setEventData();
  setPartnerData();
  
- 
-  // show the main screen
-  showMainScreen();
+ //Show the Main Screen
+ showMainScreen();
  }
 
  /**
@@ -37,11 +38,13 @@ public class Main {
   * */
 
  private static void showMainScreen() {
-  System.out.println("==== HipHapOrg ====");
-  System.out.println();
-  System.out.println("1. Register new employee");
-  System.out.println("2. Log in");
-
+  System.out.println(" _________________________");
+  System.out.println("|   ~~~~ HipHapOrg ~~~~   |");
+  System.out.println("|-------------------------|");
+  System.out.println("|1. Register new employee |");
+  System.out.println("|2. Log in                |");
+  System.out.println("|_________________________|");
+  
   //get option for the user using the helping class
   int option = HelperOptionsSCREEN.chooseOption(1, 2);
 
@@ -73,18 +76,20 @@ public class Main {
   System.out.print("Password: ");
   String password = scanner.nextLine();
   password.toLowerCase();
-            System.out.println(employees.get(0).getId());
-            System.out.println(employees.get(0).getPassword());
-
+            
 for (int i = 0; i < employees.size(); i++) {
+
+System.out.println(employees.get(i).getId());
+            System.out.println(employees.get(i).getPassword());
+
         if (id.equals(employees.get(i).getId()) && password.equals(employees.get(i).getPassword()) )
         {
-        // user is now Logged in
-        // here we save as an current employee
+        /*user is now Logged in
+        here we save as an current employee*/
         currentEmployee = employees.get(i);
-        // show user screen which is not finished yet but will be until Sunday :D
+        //show user screen which is not finished yet but will be until Sunday :D
+        break;
         //showUserScreen();
-        return;
         } else {
         System.out.println("=== Wrong username or password ===");
         showLoginScreen();
@@ -115,11 +120,11 @@ private static void showRegistrationScreen() {
             writer.append("\r\n");
             System.out.println("ID: ");
             writer.append(id);
-            writer.append(':');
+            writer.append(":");
             writer.append(name);
-            writer.append(':');
+            writer.append(":");
             writer.append(password);
-            writer.append(':');
+            writer.append(":");
             writer.append(email);
 
             writer.close();
@@ -236,26 +241,31 @@ private static void showRegistrationScreen() {
  
  public static void setEmployeeData() {
   // creates objects of employees
-  ArrayList < Employee > employees = new ArrayList < > ();
+  
   try {
    String fileName = "Employee";
 
    File myFile = new File(fileName + ".txt");
    Scanner x = new Scanner(myFile);
-
+   
+   String line;
+   
    while (x.hasNext()) {
-    String a = x.next();
+    line = x.next();
+    
     Employee em = new Employee();
-    String[] emVar = a.split(":");
+    String[] emVar = line.split(":");
     em.setId(emVar[0]);
     em.setName(emVar[1]);
     em.setPassword(emVar[2]);
     em.setEmail(emVar[3]);
-   // System.out.println("ID: " + emVar[0] + " Name: " + emVar[1] + " Password: " + emVar[2] + " Email: " + emVar[3]);
-
+    //System.out.println("ID: " + emVar[0] + "     Name: " + emVar[1] + "     Password: " + emVar[2] + "     Email: " + emVar[3]);
 
     employees.add(em);
+  //  System.out.println(employees.size());
    }
+       System.out.println();
+
   } catch (IOException e) {
    System.out.println("No itmes match your search.");
   }
@@ -266,21 +276,24 @@ private static void showRegistrationScreen() {
 
  public static void setEventData() {
   // creates objects of events
-  ArrayList < Event > events = new ArrayList < > ();
   try {
    String fileName = "Event";
 
    File myFile = new File(fileName + ".txt");
    Scanner x = new Scanner(myFile);
+   
 
    while (x.hasNext()) {
     String a = x.next();
     String[] evVar = a.split(":");
+    
     Event ev = new Event(evVar[0], evVar[1], evVar[2], evVar[3], evVar[4], Double.parseDouble(evVar[5]));
-//    System.out.println("ID: " + evVar[0] + " Name: " + evVar[1] + " Type: " + evVar[2] + " Date: " + evVar[3] + "Location: " + evVar[4] + "Price: " + evVar[5]);
+    //System.out.println("ID: " + evVar[0] + "     Name: " + evVar[1] + "     Type: " + evVar[2] + "     Date: " + evVar[3] + "     Location: " + evVar[4] + "     Price: " + evVar[5]);
 
     events.add(ev);
    }
+       System.out.println();
+
   } catch (IOException e) {
    System.out.println("No itmes match your search.");
   }
@@ -289,7 +302,6 @@ private static void showRegistrationScreen() {
 
  public static void setPartnerData() {
   // creates objects of partners
-  ArrayList < Partner > partners = new ArrayList < > ();
   try {
    String fileName = "Partner";
 
@@ -300,16 +312,20 @@ private static void showRegistrationScreen() {
     String a = x.next();
     String[] paVar = a.split(":");
     Partner pa = new Partner(paVar[0], paVar[1], Double.parseDouble(paVar[2]));
-   // System.out.println("Name: " + paVar[0] + "Service: " + paVar[1] + "Price: " + paVar[2]);
+    //System.out.println("Name: " + paVar[0] + "     Service: " + paVar[1] + "     Price: " + paVar[2]);
+
+
 
     partners.add(pa);
    }
+       System.out.println();
+
   } catch (IOException e) {
    System.out.println("No itmes match your search.");
   }
  }
 
 
-//=============================================================================================  
+//===============================================================================================  
 
  }
