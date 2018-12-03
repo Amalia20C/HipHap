@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
       //these 2 are for the SetData thing because i tried to put it into main directly 
-      //and it actually works so maybe we keep it like this but it doesnt matter for now
-///import java.io.*;
-//import java.util.*;
+      //and it actually works so maybe we keep it like this but it doesnd matter for now
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
@@ -22,11 +22,13 @@ public class Main {
 
  public static void main(String[] args) {
    //this is just shit from the SetData thing :D
- //setEmployeeData();
- //setEventData();
- //setPartnerData();
+ setEmployeeData();
+ setEventData();
+ setPartnerData();
  
-   showMainScreen();
+ 
+  // show the main screen
+  showMainScreen();
  }
 
  /**
@@ -61,6 +63,7 @@ public class Main {
   System.out.print("Id: ");
   String id = scanner.nextLine();
 
+
   // Coming back to Main page
   if (id.equals("EXIT")) {
    showMainScreen();
@@ -69,25 +72,25 @@ public class Main {
 
   System.out.print("Password: ");
   String password = scanner.nextLine();
+  password.toLowerCase();
+            System.out.println(employees.get(0).getId());
+            System.out.println(employees.get(0).getPassword());
 
-  for (int i = 0; i < employees.size(); i++) {
-   if (id.equals(employees.get(i).getId())) {
-    if (password.equals(employees.get(i).getPassword())) {
-     // user is now Logged in
-     // here we save as an current employee
-     currentEmployee = employees.get(i);
-     // show user screen which is not finished yet but will be until Sunday :D
-     //showUserScreen();
-     return;
-    } else {
-     System.out.println("=== Wrong username or password ===");
-     showLoginScreen();
-    }
-   }
-  }
-
-  System.out.println("=== Wrong username or password ===");
-  showLoginScreen();
+for (int i = 0; i < employees.size(); i++) {
+        if (id.equals(employees.get(i).getId()) && password.equals(employees.get(i).getPassword()) )
+        {
+        // user is now Logged in
+        // here we save as an current employee
+        currentEmployee = employees.get(i);
+        // show user screen which is not finished yet but will be until Sunday :D
+        //showUserScreen();
+        return;
+        } else {
+        System.out.println("=== Wrong username or password ===");
+        showLoginScreen();
+        }
+        }
+        
  }
 
 
@@ -95,29 +98,39 @@ public class Main {
   * Shows the registrationScreen with the options
   * Asks the user for details in order to create a new Employee object
   * */
- private static void showRegistrationScreen() {
-  System.out.println("==== Registration ====");
-  String[] newEmployeeInfo = {
-   "ID: ",
-   "Password: ",
-   "Name: ",
-   "email: "
-  };
 
-  for (int i = 0; i < newEmployeeInfo.length; i++) {
-   System.out.print(newEmployeeInfo[i]);
-   newEmployeeInfo[i] = scanner.nextLine();
-  }
+private static void showRegistrationScreen() {
+        System.out.println("==== Registration ====");
+        try
+        {
+            System.out.print("ID: ");        
+            String id = scanner.nextLine();
+            System.out.print("Name: ");
+            String name = scanner.nextLine();
+            System.out.print("Password: ");
+            String password = scanner.nextLine();
+            System.out.print("Email: ");            
+            String email = scanner.nextLine();
+            BufferedWriter writer=new BufferedWriter(new FileWriter("Employee.txt",true));
+            writer.append("\r\n");
+            System.out.println("ID: ");
+            writer.append(id);
+            writer.append(':');
+            writer.append(name);
+            writer.append(':');
+            writer.append(password);
+            writer.append(':');
+            writer.append(email);
 
-  // creates a new Employee and add it to the arrayList
-  Employee newEmployee = new Employee(newEmployeeInfo[0], newEmployeeInfo[1], newEmployeeInfo[2], newEmployeeInfo[3]);
+            writer.close();
+            setEmployeeData();
+            }catch (IOException e) {
+   System.out.println("No itmes match your search.");
+  
 
-  System.out.println("=== Successfully registered ===");
-  // save the new Employee into the employees ArrayList
-  employees.add(newEmployee);
-
-  showMainScreen();
- }
+        }
+        showMainScreen();
+}
 
 //I'll finish this later this weekend
 
@@ -131,11 +144,11 @@ public class Main {
   
  /*private static void showUserScreen() {
   String[] options = {
-   "option1 ",
-   "option2",
-   "option3",
-   "option4",
-   "option5"
+   "Create Event ",
+   "Edit Event ",
+   "Delete Event ",
+   "Send notification to Customer ",
+   "See Statistics "
   };
 
   System.out.println("==== Dashboard ====");
@@ -218,7 +231,7 @@ public class Main {
                //but WE WILL FIX IT!! 
                
 //============================================================================================  
-/*  static Scanner x;
+  static Scanner x;
  static Scanner user = new Scanner(System.in);
  
  public static void setEmployeeData() {
@@ -238,7 +251,7 @@ public class Main {
     em.setName(emVar[1]);
     em.setPassword(emVar[2]);
     em.setEmail(emVar[3]);
-    //System.out.println("ID: " + emVar[0] + " Name: " + emVar[1] + " Password: " + emVar[2] + " Email: " + emVar[3]);
+   // System.out.println("ID: " + emVar[0] + " Name: " + emVar[1] + " Password: " + emVar[2] + " Email: " + emVar[3]);
 
 
     employees.add(em);
@@ -264,7 +277,7 @@ public class Main {
     String a = x.next();
     String[] evVar = a.split(":");
     Event ev = new Event(evVar[0], evVar[1], evVar[2], evVar[3], evVar[4], Double.parseDouble(evVar[5]));
-    //System.out.println("ID: " + evVar[0] + " Name: " + evVar[1] + " Type: " + evVar[2] + " Date: " + evVar[3] + "Location: " + evVar[4] + "Price: " + evVar[5]);
+//    System.out.println("ID: " + evVar[0] + " Name: " + evVar[1] + " Type: " + evVar[2] + " Date: " + evVar[3] + "Location: " + evVar[4] + "Price: " + evVar[5]);
 
     events.add(ev);
    }
@@ -287,7 +300,7 @@ public class Main {
     String a = x.next();
     String[] paVar = a.split(":");
     Partner pa = new Partner(paVar[0], paVar[1], Double.parseDouble(paVar[2]));
-    //System.out.println("Name: " + paVar[0] + "Service: " + paVar[1] + "Price: " + paVar[2]);
+   // System.out.println("Name: " + paVar[0] + "Service: " + paVar[1] + "Price: " + paVar[2]);
 
     partners.add(pa);
    }
@@ -296,7 +309,7 @@ public class Main {
   }
  }
 
-*/
+
 //=============================================================================================  
 
  }
