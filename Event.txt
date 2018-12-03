@@ -1,3 +1,3 @@
-1aa:ChristmasParty:party:20/12/2018:Norreport:400
-1bb:FoodSharing:charity:10/12/2018:Norrebro:300
-1cc:BusinessMeeting:meeting:11/01/2018:Husum:200
+e1:BusinessMeeting:Meeting:20/12/2018:Norreport:400
+e2:FamilyMeeting:Meeting:11/01/2018:Husum:200
+e3:FoodSharing:Charity:10/12/2018:Norrebro:300
