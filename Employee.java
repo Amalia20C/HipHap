@@ -30,7 +30,7 @@ private String email;
         return this.name;
     }
 
-    public void setPassword(String Password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
