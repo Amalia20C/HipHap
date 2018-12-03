@@ -118,7 +118,6 @@ private static void showRegistrationScreen() {
             String email = scanner.nextLine();
             BufferedWriter writer=new BufferedWriter(new FileWriter("Employee.txt",true));
             writer.append("\r\n");
-            System.out.println("ID: ");
             writer.append(id);
             writer.append(":");
             writer.append(name);
