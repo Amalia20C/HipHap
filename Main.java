@@ -64,7 +64,7 @@ public class Main {
 
   System.out.println("Type \"exit\" to open main page");
   System.out.print("Id: ");
-  String id = scanner.nextLine();
+  String id = scanner.nextLine().toUpperCase();
 
 
   // Coming back to Main page
@@ -79,25 +79,21 @@ public class Main {
             
 for (int i = 0; i < employees.size(); i++) {
 
-System.out.println(employees.get(i).getId());
-            System.out.println(employees.get(i).getPassword());
-
-        if (id.equals(employees.get(i).getId()) && password.equals(employees.get(i).getPassword()) )
-        {
-        /*user is now Logged in
-        here we save as an current employee*/
-        currentEmployee = employees.get(i);
-        //show user screen which is not finished yet but will be until Sunday :D
-        break;
-        //showUserScreen();
-        } else {
-        System.out.println("=== Wrong username or password ===");
-        showLoginScreen();
-        }
-        }
-        
+ if (id.equals(employees.get(i).getId())) {
+  if (password.equals(employees.get(i).getPassword())) {
+   /*user is now Logged in
+   here we save as an current employee*/
+   currentEmployee = employees.get(i);
+   //show user screen which is not finished yet but will be until Sunday :D
+   //showUserScreen();
+   return;
+  } else {
+   System.out.println("=== Wrong username or password ===");
+   showLoginScreen();
+  }
  }
-
+}
+ }
 
  /**
   * Shows the registrationScreen with the options
@@ -154,19 +150,15 @@ private static void showRegistrationScreen() {
    "Send notification to Customer ",
    "See Statistics "
   };
-
   System.out.println("==== Dashboard ====");
-
   for (int i = 0; i < options.length; i++) {
    if (i == 4 && !currentCustomer.isManager) {
     continue;
    }
    System.out.println(i + ". " + options[i]);
   }
-
   // get option from the user
     int option = HelperOptionsSCREEN.chooseOption(0, ( currentCustomer.isManager ? 4 : 3 ));
-
     switch(option) {
         case 0:
             System.out.println("=== Successfully logged out ===");
