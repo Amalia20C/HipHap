@@ -18,7 +18,6 @@ public class Event {
         this.date = date;
         this.location = location;
         this.eventPrice = eventPrice;
-
     }
     /* === setters ===  */
   public void setId(String id) {
@@ -61,8 +60,5 @@ public class Event {
         public double getEventPrice() {
         return eventPrice;
     }
-    
-    
-    
-
+   
 }
