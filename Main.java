@@ -14,6 +14,9 @@ public class Main {
  // ArrayList which stores partners
  private static ArrayList < Partner > partners = new ArrayList < > ();
  
+  // ArrayList which stores customers
+ private static ArrayList < Customer > customers = new ArrayList < > ();
+  
  // we are gonna just leave this here for now, maybe we create statistic as well 
  //private static ArrayList<Statistic> statistics = new ArrayList<>();
 
@@ -27,6 +30,9 @@ public class Main {
  setEmployeeData();
  setEventData();
  setPartnerData();
+ setCustomerData();
+ //sendNotificationToCustomer();
+//showCreateEventScreen();
  
  //Show the Main Screen
  showMainScreen();
@@ -37,7 +43,7 @@ public class Main {
   * Then the user has to  choose an option
   * */
 
- private static void showMainScreen() {
+ public static void showMainScreen() {
   System.out.println(" _________________________");
   System.out.println("|   ~~~~ HipHapOrg ~~~~   |");
   System.out.println("|-------------------------|");
@@ -51,55 +57,9 @@ public class Main {
   if (option == 1) showRegistrationScreen();
   else showLoginScreen();
  }
-
-
- /**
-  * Show Login screen
-  * Ask the user for the id
-  * and then
-  * Ask the user for the password
-  * */
- private static void showLoginScreen() {
-  System.out.println("==== Login ====");
-
-  System.out.println("Type \"exit\" to open main page");
-  System.out.print("Id: ");
-  String id = scanner.nextLine().toUpperCase();
-
-
-  // Coming back to Main page
-  if (id.equals("EXIT")) {
-   showMainScreen();
-   return;
-  }
-
-  System.out.print("Password: ");
-  String password = scanner.nextLine();
-  password.toLowerCase();
-            
-for (int i = 0; i < employees.size(); i++) {
-
- if (id.equals(employees.get(i).getId())) {
-  if (password.equals(employees.get(i).getPassword())) {
-   /*user is now Logged in
-   here we save as an current employee*/
-   currentEmployee = employees.get(i);
-   //show user screen which is not finished yet but will be until Sunday :D
-   //showUserScreen();
-   return;
-  } else {
-   System.out.println("=== Wrong username or password ===");
-   showLoginScreen();
-  }
- }
-}
- }
-
- /**
-  * Shows the registrationScreen with the options
-  * Asks the user for details in order to create a new Employee object
-  * */
-
+ 
+ 
+ 
 private static void showRegistrationScreen() {
         System.out.println("==== Registration ====");
         try
@@ -132,33 +92,77 @@ private static void showRegistrationScreen() {
         showMainScreen();
 }
 
-//I'll finish this later this weekend
 
+
+               
+
+
+ /**
+  * Show Login screen
+  * Ask the user for the id
+  * and then
+  * Ask the user for the password
+  * */
+ private static void showLoginScreen() {
+  System.out.println("==== Login ====");
+
+  System.out.println("Type \"exit\" to open main page");
+  System.out.print("Id: ");
+  String id = scanner.nextLine();
+
+
+  // Coming back to Main page
+  if (id.equals("EXIT")) {
+   showMainScreen();
+   return;
+  }
+
+  System.out.print("Password: ");
+  String password = scanner.nextLine();
+  //System.out.println(events.get(0).getLocation());
+            
+for (int i = 0; i < employees.size(); i++) {
+
+ if (id.equals(employees.get(i).getId())) {
+  if (password.equals(employees.get(i).getPassword())) {
+   /*user is now Logged in
+   here we save as an current employee*/
+   currentEmployee = employees.get(i);
+   //show user screen which is not finished yet but will be until Sunday :D
+   //showUserScreen();
+   return;
+  } else {
+   System.out.println("=== Wrong username or password ===");
+   showLoginScreen();
+  }
+ }
+}
+ }
  
  /** Show the User screen
   * show the list of available options for the logged in user of the system
   * if the user is a manager, show the additional options he can have (like seeing the statistics)
   * */
   
-  //this should work but I dont have yet ideas so I'll just leave it for now. You can do it if you got ideas
-  
- /*private static void showUserScreen() {
+ private static void showUserScreen() {
   String[] options = {
-   "Create Event ",
-   "Edit Event ",
-   "Delete Event ",
-   "Send notification to Customer ",
-   "See Statistics "
+   "1. Create Event ",
+   "2. Edit Event ",
+   "3. Delete Event ",
+   "4. Send notification to Customer ",
+   "5. See lists ", //as manager
+   "6. Calculate accounting ",
+   "7. See Statistics " //as manager
   };
   System.out.println("==== Dashboard ====");
   for (int i = 0; i < options.length; i++) {
-   if (i == 4 && !currentCustomer.isManager) {
+   if (i == 6 && !currentEmployee.isManager) {
     continue;
    }
    System.out.println(i + ". " + options[i]);
   }
   // get option from the user
-    int option = HelperOptionsSCREEN.chooseOption(0, ( currentCustomer.isManager ? 4 : 3 ));
+    int option = HelperOptionsSCREEN.chooseOption(0, ( currentEmployee.isManager ? 6 : 5 ));
     switch(option) {
         case 0:
             System.out.println("=== Successfully logged out ===");
@@ -167,66 +171,127 @@ private static void showRegistrationScreen() {
             showMainScreen();
             break;
         case 1:
-            //bla bla we got to figure out which options we will have 
+            //Create new Event
+            System.out.println("==== Create a new event ====");
+        try
+        {
+            System.out.print("ID: ");        
+            String id = scanner.nextLine();
+            System.out.print("Name: ");
+            String name = scanner.nextLine();
+            System.out.print("Type: ");
+            String type = scanner.nextLine();
+            System.out.print("Date: ");            
+            String date = scanner.nextLine();
+            System.out.print("Location: ");            
+            String location = scanner.nextLine();
+            System.out.print("Price: ");            
+            Double eventPrice = scanner.nextDouble();
+            
+            BufferedWriter writer=new BufferedWriter(new FileWriter("Event.txt",true));
+            writer.append("\r\n");
+            writer.append(id);
+            writer.append(":");
+            writer.append(name);
+            writer.append(":");
+            writer.append(type);
+            writer.append(":");
+            writer.append(date);
+            writer.append(":");
+            writer.append(location);
+            writer.append(":");
+            writer.append(Double.toString(eventPrice));
+
+            writer.close();
+            //setEventData();
+            System.out.println("Successfully created a new event!");
+            }catch (IOException e) {
+   System.out.println("No itmes match your search.");
+        }
             break;
+            
+            
         case 2:
-            //bla bla again :d
+            //Edit an existing Event
+            System.out.println("Need to fix this!");
             break;
+            
+            
         case 3:
-            // just some crap ideas I'm losing my time
+            //Delete an existing Event
+            System.out.println("Need to fix this!");
             break;
-        case 4:
-            //why the fuck am I leaving this comms?=)))
-            break;
-    }
-      } */
-  
-  
 
-  /**
-   * Shows the create event screen
-   * Asks the user for details in order to create a new Event object
-   * */
-  public static void createEventScreen() {
-
-   System.out.println("==== CREATE ====");
-
-   String[] newEventInfo = {
-    "Id: ",
-    "Name: ",
-    "Type: ",
-    "Date: ",
-    "Location: ",
-    "Event price: "
-   };
-
-   for (int i = 0; i < newEventInfo.length; i++) {
-    System.out.print(newEventInfo[i]);
-    newEventInfo[i] = scanner.nextLine();
-   }
-
-   // create a new Event and add it to the arrayList
-   Event newEvent = new Event(newEventInfo[0], newEventInfo[1], newEventInfo[2], newEventInfo[3], newEventInfo[4], Double.parseDouble(newEventInfo[5]));
-
-   System.out.println("=== Successfully created ===");
-   // save the new Event into the events ArrayList
-   events.add(newEvent);
-
-   showMainScreen();
+                    case 4:
+            //Send notificaton to customer 
+  System.out.println("==== Send info-notification to customers ====");
+  System.out.println("Type \"exit\" to open the userScreen page");
+  System.out.print("The name of the customer: ");
+  String nameCustomer = scanner.nextLine();
+  int aux1 = 0;
+  // Coming back to Main page
+  if (nameCustomer.equals("EXIT")) {
+   showMainScreen(); //USER SCREEEEN WHEN ITS GONNA BE FINISHED
+   return;
   }
+    System.out.print("The email of the customer: ");
+  String emailCustomer = scanner.nextLine();
   
-  //and this is just copy paste from the SetData class, and it works properly in the main <3 
-  //this is just in case we wont figure it out how to call the class
+  for (int i = 0; i < customers.size(); i++) {
+
+   if (nameCustomer.equals(customers.get(i).getName())) {
+   if (emailCustomer.equals(customers.get(i).getEmail())) {
+    aux1 = i;
+    System.out.println("Customer available! ");
+   } else {
+    System.out.println("This customer does not exist! ");
+    showMainScreen();
+    //showUserScreen(); actually
+   }
+   }
+  }
+
+  System.out.print("The ID of the event: ");
+  String idEvent = scanner.nextLine();
+  int aux2 = 0;
+   boolean eventFound = false;
+  for (int j = 0; j < events.size(); j++) {
+System.out.println(events.get(2).getId()); // testing
+
+   if (idEvent.equalsIgnoreCase(events.get(j).getId())) {
+    //aux2 = j;
+    System.out.println(j);// testing
+    System.out.println("Hello, Mr/Mrs " + customers.get(aux1).getName() + " !");
+    System.out.println("We are looking forward to seeing you at the event you signed up for, named " + events.get(j).getName() + ", taking place at " + events.get(j).getLocation() + ", which will be held on " + events.get(j).getDate() + ".");
+    System.out.println("The price of the event is " + events.get(j).getEventPrice() + ". " );
+    eventFound = true;
+    break;
+   } 
+  }
+  if(!eventFound) {
+    showMainScreen();
+    //showUserScreen(); actually
+  }
+          case 5:
+            //Print out lists
+            System.out.println("Need to fix this!");
+            break;
   
-               // ?????????????????????????????????????????????????
-               // READ THIS PLEASE
-               // all this things are woking if we use them normally, not using the text files....
-               // so the BIGGGGGGGGEST issue we have right now is how to use in the program the information from the text files...
-               // because what Amalia did is super good but i guess it just creates the arrays and displays...
-               //the info just doesnt stay in the "system" so we kinda cant use it 
-               //but WE WILL FIX IT!! 
-               
-//============================================================================================  
+          case 6:
+            //Show the accounting
+            System.out.println("Need to fix this!");
+            break;
+  
+          case 7:
+            //see the statistics as a manager
+            System.out.println("Need to fix this!");
+            break;
+  
+    }
+      } 
+      
+      
+      //============================================================================================  
   static Scanner x;
  static Scanner user = new Scanner(System.in);
  
@@ -258,7 +323,7 @@ private static void showRegistrationScreen() {
        System.out.println();
 
   } catch (IOException e) {
-   System.out.println("No itmes match your search.");
+   System.out.println("No items match your search.");
   }
  }
 
@@ -286,7 +351,7 @@ private static void showRegistrationScreen() {
        System.out.println();
 
   } catch (IOException e) {
-   System.out.println("No itmes match your search.");
+   System.out.println("No items match your search.");
   }
  }
 
@@ -315,8 +380,42 @@ private static void showRegistrationScreen() {
    System.out.println("No itmes match your search.");
   }
  }
+ 
+  public static void setCustomerData() {
+  // creates objects of customers
+  try {
+   String fileName = "Customer";
+
+   File myFile = new File(fileName + ".txt");
+   Scanner x = new Scanner(myFile);
+
+   while (x.hasNext()) {
+    String a = x.next();
+    String[] cuVar = a.split(":");
+    Customer cu = new Customer(cuVar[0], cuVar[1]);
+    //System.out.println("Name: " + cuVar[0] + "     Email: " + cuVar[1]);
 
 
+
+    customers.add(cu);
+   }
+       System.out.println();
+
+  } catch (IOException e) {
+   System.out.println("No itmes match your search.");
+  }
+ }
+ 
+   
 //===============================================================================================  
 
  }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
