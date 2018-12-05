@@ -3,16 +3,19 @@ private String id;
 private String name;
 private String password;
 private String email;
+private String isManager; 
 
      public Employee() {
 
      }
-     public Employee (String Id, String name, String password, String email) {
-           this.id = Id;
+     public Employee (String id, String name, String password, String email, String isManager) {
+           this.id = id;
            this.name = name;
            this.password = password;
            this.email = email;
+           this.isManager = isManager;
     }
+
 
     public void setId(String id) {
          this.id = id; 
@@ -45,7 +48,16 @@ private String email;
     public String getEmail() {
       return this.email;
      }
-    public String toString() {
-      return this.id + " " + this.name + " " + this.password + " " + this.email;
+     
+         public void setIsManager(String isManager) {
+         this.isManager = isManager; 
+    }
+
+    public String getIsManager() {
+        return this.isManager;
+    }
+    
+    public void employeeList() {
+      System.out.println(" ID: " + this.id + " Name: " + this.name + " Email:" + this.email);
     }
      }
