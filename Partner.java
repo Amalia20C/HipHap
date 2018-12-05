@@ -35,4 +35,8 @@ private double price;
     public double getPrice() {
       return this.price;
      }     
+     
+       public void partnerList() {
+      System.out.println("Name: " + this.name + " Service: " + this.service + " Price: " + this.price);
+    }
      }
