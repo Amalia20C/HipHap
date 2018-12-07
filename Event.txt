@@ -1,4 +1,2 @@
-e1:BusinessMeeting:Meeting:20/12/2018:Norreport:Amalia:400
+e1:Party:Meeting:20/12/2018:Norreport:Amalia:400
 e2:FamilyMeeting:Meeting:11/01/2018:Husum:Simonas:200
-e3:FoodSharing:Charity:10/12/2018:Norrebro:Madalina:300
-e4:HealthLecture:lecture:20/12/2018:Valby:Madalina:150.0

@@ -21,7 +21,7 @@ public class Event {
   this.employee = employee;
   this.eventPrice = eventPrice;
  }
- /* === setters ===  /
+
   public void setId(String id) {
     this.id = id;
   }
@@ -44,7 +44,6 @@ public class Event {
       this.employee = employee;
       }
 
-    / === getters === */
  public String getEmployee() {
   return this.employee;
  }
@@ -71,6 +70,8 @@ public class Event {
  public void eventList() {
   System.out.println("ID: " + this.id + " Name: " + this.name + " Type: " + this.type + " Date: " + this.date + " Location: " + this.location + " Organiser: " + this.employee + " Price: " + this.eventPrice);
  }
-
+ public String toString() {
+ return this.id + ":" +  this.name + ":" + this.type + ":" + this.date + ":" + this.location + ":" + this.employee + ":" + this.eventPrice;
+ }
 
 }
